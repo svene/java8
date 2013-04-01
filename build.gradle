@@ -11,7 +11,7 @@ version = '0.0.2'
 
 idea {
 	project {
-		jdkName = '1.6'
+		jdkName = '1.8'
 	}
 	module {
 		downloadSources = false
