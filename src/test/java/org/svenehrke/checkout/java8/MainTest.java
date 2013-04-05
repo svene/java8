@@ -19,6 +19,9 @@ public class MainTest {
 		long result = prices.stream().map((Integer price) -> price * 2).reduce(new IntegerBinaryOperator()).get();
 		assertEquals(390L, result);
 
+		result = prices.stream().map((Integer price) -> price * 2).reduce((Integer t, Integer u) -> t + u).get();
+		assertEquals(390L, result);
+
 	}
 
 	private static class IntegerBinaryOperator implements BinaryOperator<Integer> {
