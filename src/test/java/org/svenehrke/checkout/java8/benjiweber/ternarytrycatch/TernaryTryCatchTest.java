@@ -22,7 +22,7 @@ public class TernaryTryCatchTest {
 	@Test
 	public void test2() throws Exception {
 
-		final Customer c = new TryCatch<Customer,NotFoundException>() {
+		final Customer c = new TryCatch<Customer,NotFoundException>(supplier1, supplier2) {
 
 			@Override
 			public Customer Try() throws NotFoundException {
@@ -45,9 +45,6 @@ public class TernaryTryCatchTest {
 		return null;
 	}
 
-
-	static class Customer {
-	}
 
 	static class NotFoundException extends Exception {
 
