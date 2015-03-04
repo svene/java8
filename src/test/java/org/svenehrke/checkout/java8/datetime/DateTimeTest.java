@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.svenehrke.checkout.java8.datetime.DateTimeHelper.*;
@@ -56,6 +58,26 @@ public class DateTimeTest {
 			"29.02.2015", "30.02.2015", "32.02.2015"
 		).forEach(it -> assertDateTimeParseException(String.format("parsing '%s'", it), () -> dateFromString(it, STRICT_FORMATTER)));
 
+	}
+
+	@Test
+	public void validDates() {
+		String actuals = Arrays.asList(
+			"27.02.2015", "28.02.2015", "2.02.2015",
+			"29.02.2015", "32.02.2015"
+		).stream().filter(it -> !isValidDate(it)).collect(Collectors.joining("-"));
+
+		assertEquals("29.02.2015-23.02.2015", actuals);
+	}
+
+
+	private boolean isValidDate(String dateString) {
+		try {
+			dateFromString(dateString, STRICT_FORMATTER);
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
+		}
 	}
 
 	@Test
